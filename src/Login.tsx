@@ -9,9 +9,11 @@ const Login: React.FC = (props: any) => {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    const unSub = auth.onAuthStateChanged((user) => {
       user && props.history.push("/");
     });
+
+    return() => unSub();
   }, [props.history]);
 
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
